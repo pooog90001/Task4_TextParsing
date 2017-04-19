@@ -11,7 +11,8 @@ import java.util.regex.Pattern;
  * Created by vlad_ on 4/17/2017.
  */
 public class TextParser extends AbstractParser {
-    private final String PHARAGRAPH_REGEX = "(\\t| {4}).+?($|\\n)";
+    private final static String PHARAGRAPH_REGEX = "(\\t| {4}).+?($|\\n)";
+    private final static PharagraphParser PHARAGRAPH_PARSER = new PharagraphParser();
 
     @Override
     public TextComponent handleParse(String inPut) {
@@ -20,7 +21,7 @@ public class TextParser extends AbstractParser {
         TextComponent component = new TextElement();
         while (matcher.find()) {
             String string = matcher.group();
-            TextComponent subComponent = new PharagraphParser().handleParse(string);
+            TextComponent subComponent = PHARAGRAPH_PARSER.handleParse(string);
             subComponent.setElementType(TextElementType.PARAGRAPH);
             component.add(subComponent);
         }

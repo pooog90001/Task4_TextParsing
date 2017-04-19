@@ -13,7 +13,9 @@ import java.util.regex.Pattern;
  */
 public class LexemeParser extends AbstractParser {
     private static final String LEXEME_REGEX =
-            "([\\'\\\"]*)(([a-hk-zA-Z]*)(\\w)+([\\.\\?\\!,\\:\\;\\'\\\"-]*)";
+            "([\\'\\\"]*)(\\w)+([\\.\\?\\!,\\:\\;\\'\\\"-]*)";
+    private final static SymbolParser SYMBOL_PARSER = new SymbolParser();
+
     @Override
     public TextComponent handleParse(String inPut) {
 
@@ -22,24 +24,24 @@ public class LexemeParser extends AbstractParser {
         TextComponent component = new TextElement();
 
         while (matcher.find()) {
-            String group1 = matcher.group(1);
+            String group1 = matcher.group(1); // ЧТО ДЕЛАТЬ С ЭТИМИ ЦИФРАМИ???
 
             if(!group1.isEmpty()) {
-                TextComponent component1 = new SymbolParser().handleParse(group1);
+                TextComponent component1 = SYMBOL_PARSER.handleParse(group1);
                 component1.setElementType(TextElementType.GROUP_SYMBOLS);
                 component.add(component1);
             }
-            String group2 = matcher.group(2);
+            String group2 = matcher.group(2); // ЧТО ДЕЛАТЬ С ЭТИМИ ЦИФРАМИ???
 
             if(!group2.isEmpty()) {
-                TextComponent component2 = new SymbolParser().handleParse(group2);
+                TextComponent component2 = SYMBOL_PARSER.handleParse(group2);
                 component2.setElementType(TextElementType.WORD);
                 component.add(component2);
             }
-            String group7 = matcher.group(7);
+            String group7 = matcher.group(7); // ЧТО ДЕЛАТЬ С ЭТИМИ ЦИФРАМИ???
 
             if(!group7.isEmpty()) {
-                TextComponent component7 = new SymbolParser().handleParse(group7);
+                TextComponent component7 = SYMBOL_PARSER.handleParse(group7);
                 component7.setElementType(TextElementType.GROUP_SYMBOLS);
                 component.add(component7);
             }

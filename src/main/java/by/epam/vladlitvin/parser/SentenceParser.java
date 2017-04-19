@@ -14,6 +14,10 @@ public class SentenceParser extends AbstractParser {
                     "([i|j]*))+([\\.\\?\\!,\\:\\;\\'\\\"-]*))" +
                     "([\\d\\+\\-\\*\\/()ij ]{3,})*";
 
+    private final static LexemeParser LEXEME_PARSER = new LexemeParser();
+    private final static SymbolParser SYMBOL_PARSER = new SymbolParser();
+
+
     @Override
     public TextComponent handleParse(String inPut) {
 
@@ -25,14 +29,14 @@ public class SentenceParser extends AbstractParser {
             String group1 = matcher.group(1);
 
             if(!group1.isEmpty()) {
-                TextComponent component1 = new LexemeParser().handleParse(group1);
+                TextComponent component1 = LEXEME_PARSER.handleParse(group1);
                 component1.setElementType(TextElementType.LEXEME);
                 component.add(component1);
             }
             String group9 = matcher.group(7);
 
             if(!group9.isEmpty()) {
-                TextComponent component9 = new SymbolParser().handleParse(group9);
+                TextComponent component9 = SYMBOL_PARSER.handleParse(group9);
                 component9.setElementType(TextElementType.MATH_EXP);
                 component.add(component9);
             }

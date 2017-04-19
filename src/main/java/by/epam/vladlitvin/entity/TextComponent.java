@@ -2,6 +2,8 @@ package by.epam.vladlitvin.entity;
 
 import by.epam.vladlitvin.type.TextElementType;
 
+import java.util.ArrayList;
+
 /**
  * Created by vlad_ on 4/17/2017.
  */
@@ -19,5 +21,6 @@ public abstract class TextComponent {
 
     public abstract void add(TextComponent component);
     public abstract void remove(TextComponent component);
-    public abstract TextComponent getChild();
+    public abstract String getElement();
+    public abstract ArrayList<TextComponent> getChild();
 }

@@ -19,12 +19,28 @@ public class TextElement extends TextComponent {
 
     @Override
     public void remove(TextComponent component) {
-        // УЗНАТЬ КАКОЙ ЭЛЕМЕНТ УДАЛИТЬСЯ И ИЩЕТ ЛИ ОН ВСЕ ТАКИЕ ЭЛЕМЕТЫ И УДАЛЯТ ЛИ ОН ВСЕ!!!
         components.remove(component);
     }
 
     @Override
-    public TextComponent getChild() {
-        return null;
+    public String getElement() {
+        StringBuilder result = new StringBuilder();
+        for (TextComponent component: components) {
+            result.append(component.getChild());
+
+            if (getElementType().equals(TextElementType.LEXEME)) {
+                result.append(" ");
+            }
+        }
+
+        return result.toString();
+
     }
+
+    @Override
+    public ArrayList<TextComponent> getChild() {
+        return components;
+    }
+
+
 }

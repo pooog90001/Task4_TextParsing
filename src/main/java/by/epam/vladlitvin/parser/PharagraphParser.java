@@ -12,6 +12,7 @@ import static by.epam.vladlitvin.type.TextElementType.TEXT;
 
 public class PharagraphParser extends AbstractParser {
     private final static String SENTENCE_REGEX = ".+?(\\.|\\?|\\!)";
+    private final static SentenceParser SENTENCE_PARSER = new SentenceParser();
     @Override
     public TextComponent handleParse(String inPut) {
 
@@ -21,7 +22,7 @@ public class PharagraphParser extends AbstractParser {
 
         while (matcher.find()) {
             String string = matcher.group();
-            TextComponent subComponent = new SentenceParser().handleParse(string);
+            TextComponent subComponent = SENTENCE_PARSER.handleParse(string);
             subComponent.setElementType(SENTENCE);
             component.add(subComponent);
         }

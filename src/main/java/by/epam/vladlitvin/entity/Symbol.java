@@ -2,6 +2,8 @@ package by.epam.vladlitvin.entity;
 
 import by.epam.vladlitvin.type.TextElementType;
 
+import java.util.ArrayList;
+
 /**
  * Created by vlad_ on 4/17/2017.
  */
@@ -10,7 +12,7 @@ public class Symbol extends TextComponent {
     private Character symbol;
 
     public Symbol(Character symbol) {
-        super.elementType = TextElementType.SYMBOL;
+        setElementType(TextElementType.SYMBOL);
         this.symbol = symbol;
     }
 
@@ -25,7 +27,12 @@ public class Symbol extends TextComponent {
     }
 
     @Override
-    public TextComponent getChild() {
+    public String getElement() {
+        return symbol.toString();
+    }
+
+    @Override
+    public ArrayList<TextComponent> getChild() {
         return null;
     }
 }
