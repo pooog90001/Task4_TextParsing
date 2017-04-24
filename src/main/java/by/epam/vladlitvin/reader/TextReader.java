@@ -19,11 +19,13 @@ public class TextReader {
 
     public static String readTextFromFile(String fileName) throws FileReadException {
         StringBuilder stringBuilder = new StringBuilder();
-        try (BufferedReader reader = new BufferedReader( new FileReader(fileName))){
-            reader.lines().forEach(stringBuilder::append);
-            LOGGER.log(Level.INFO,"With file " + fileName + "read: \n"
-                     + stringBuilder.toString());
-
+        try (FileReader reader =  new FileReader(fileName)){
+            int c;
+            while((c = reader.read())!= -1){
+                stringBuilder.append((char) c);
+            }
+            LOGGER.log(Level.INFO,"file: \"" + fileName + "\" was read. File contain:\n"
+                    + stringBuilder.toString());
         } catch (FileNotFoundException e) {
             LOGGER.log(Level.FATAL,"This file not found " + e);
             throw new RuntimeException(e.getMessage(), e);

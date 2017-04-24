@@ -3,6 +3,7 @@ package by.epam.vladlitvin.parser;
 import by.epam.vladlitvin.entity.TextComponent;
 import by.epam.vladlitvin.entity.Symbol;
 import by.epam.vladlitvin.entity.TextElement;
+import by.epam.vladlitvin.type.TextElementType;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

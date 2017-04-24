@@ -1,8 +1,11 @@
 package by.epam.vladlitvin.entity;
 
+import by.epam.vladlitvin.exception.SymbolException;
 import by.epam.vladlitvin.type.TextElementType;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  * Created by vlad_ on 4/17/2017.
@@ -21,6 +24,7 @@ public abstract class TextComponent {
 
     public abstract void add(TextComponent component);
     public abstract void remove(TextComponent component);
+    public abstract void     removeAll();
     public abstract String getElement();
-    public abstract ArrayList<TextComponent> getChild();
+    public abstract ArrayDeque<TextComponent> getChild();
 }

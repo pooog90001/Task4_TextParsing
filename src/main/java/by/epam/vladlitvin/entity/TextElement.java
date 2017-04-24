@@ -2,7 +2,9 @@ package by.epam.vladlitvin.entity;
 
 import by.epam.vladlitvin.type.TextElementType;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  * Created by vlad_ on 4/17/2017.
@@ -10,7 +12,16 @@ import java.util.ArrayList;
 public class TextElement extends TextComponent {
 
 
-    private ArrayList<TextComponent> components;
+    private ArrayDeque<TextComponent> components;
+
+    public TextElement() {
+        this.components = new ArrayDeque<>();
+    }
+
+    public TextElement(TextElementType elementType) {
+        this.components = new ArrayDeque<>();
+        setElementType(elementType);
+    }
 
     @Override
     public void add(TextComponent component) {
@@ -23,13 +34,27 @@ public class TextElement extends TextComponent {
     }
 
     @Override
+    public void removeAll() {
+        components.removeAll(components);
+    }
+
+    @Override
     public String getElement() {
         StringBuilder result = new StringBuilder();
         for (TextComponent component: components) {
-            result.append(component.getChild());
 
-            if (getElementType().equals(TextElementType.LEXEME)) {
+            if (TextElementType.TEXT.equals(getElementType())) {
+                result.append("\t");
+                result.append(component.getElement());
+                if (component != components.getLast()) {
+                    result.append("\r\n");
+                }
+            } else if (TextElementType.SENTENCE.equals(getElementType()) &&
+                    (component != components.getLast())) {
+                result.append(component.getElement());
                 result.append(" ");
+            } else {
+                result.append(component.getElement());
             }
         }
 
@@ -38,7 +63,7 @@ public class TextElement extends TextComponent {
     }
 
     @Override
-    public ArrayList<TextComponent> getChild() {
+    public ArrayDeque<TextComponent> getChild() {
         return components;
     }
 

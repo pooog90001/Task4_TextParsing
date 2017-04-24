@@ -14,10 +14,10 @@ public class PharagraphParser extends AbstractParser {
     private final static String SENTENCE_REGEX = ".+?(\\.|\\?|\\!)";
     private final static SentenceParser SENTENCE_PARSER = new SentenceParser();
     @Override
-    public TextComponent handleParse(String inPut) {
+    public TextComponent handleParse(String pharagraph) {
 
-        Pattern pattern = Pattern.compile(SENTENCE_REGEX);
-        Matcher matcher = pattern.matcher(inPut);
+        Pattern pattern = Pattern.compile(SENTENCE_REGEX, Pattern.MULTILINE);
+        Matcher matcher = pattern.matcher(pharagraph);
         TextComponent component = new TextElement();
 
         while (matcher.find()) {

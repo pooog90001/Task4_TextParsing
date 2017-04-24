@@ -13,37 +13,42 @@ import java.util.regex.Pattern;
  */
 public class LexemeParser extends AbstractParser {
     private static final String LEXEME_REGEX =
-            "([\\'\\\"]*)(\\w)+([\\.\\?\\!,\\:\\;\\'\\\"-]*)";
+            "([\\'\\\"]*)(\\w+)([\\.\\?\\!,\\:\\;\\'\\\"-]*)";
     private final static SymbolParser SYMBOL_PARSER = new SymbolParser();
+
+    private final static int START_SYMBOLS_GROUP = 1;
+    private final static int WORD_GROUP = 2;
+    private final static int END_SYMBOLS_GROUP = 3;
+
 
     @Override
     public TextComponent handleParse(String inPut) {
 
-        Pattern pattern = Pattern.compile(LEXEME_REGEX);
+        Pattern pattern = Pattern.compile(LEXEME_REGEX, Pattern.MULTILINE);
         Matcher matcher = pattern.matcher(inPut);
         TextComponent component = new TextElement();
 
         while (matcher.find()) {
-            String group1 = matcher.group(1); // ЧТО ДЕЛАТЬ С ЭТИМИ ЦИФРАМИ???
+            String startSymbols = matcher.group(START_SYMBOLS_GROUP);
 
-            if(!group1.isEmpty()) {
-                TextComponent component1 = SYMBOL_PARSER.handleParse(group1);
-                component1.setElementType(TextElementType.GROUP_SYMBOLS);
-                component.add(component1);
+            if(!startSymbols.isEmpty()) {
+                TextComponent startComponent = SYMBOL_PARSER.handleParse(startSymbols);
+                startComponent.setElementType(TextElementType.GROUP_SYMBOLS);
+                component.add(startComponent);
             }
-            String group2 = matcher.group(2); // ЧТО ДЕЛАТЬ С ЭТИМИ ЦИФРАМИ???
+            String word = matcher.group(WORD_GROUP);
 
-            if(!group2.isEmpty()) {
-                TextComponent component2 = SYMBOL_PARSER.handleParse(group2);
-                component2.setElementType(TextElementType.WORD);
-                component.add(component2);
+            if(!word.isEmpty()) {
+                TextComponent wordComponent = SYMBOL_PARSER.handleParse(word);
+                wordComponent.setElementType(TextElementType.WORD);
+                component.add(wordComponent);
             }
-            String group7 = matcher.group(7); // ЧТО ДЕЛАТЬ С ЭТИМИ ЦИФРАМИ???
+            String endSymbols = matcher.group(END_SYMBOLS_GROUP);
 
-            if(!group7.isEmpty()) {
-                TextComponent component7 = SYMBOL_PARSER.handleParse(group7);
-                component7.setElementType(TextElementType.GROUP_SYMBOLS);
-                component.add(component7);
+            if(!endSymbols.isEmpty()) {
+                TextComponent endComponent = SYMBOL_PARSER.handleParse(endSymbols);
+                endComponent.setElementType(TextElementType.GROUP_SYMBOLS);
+                component.add(endComponent);
             }
 
         }

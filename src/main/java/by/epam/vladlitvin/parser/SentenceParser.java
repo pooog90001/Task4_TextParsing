@@ -10,35 +10,35 @@ import java.util.regex.Pattern;
 
 public class SentenceParser extends AbstractParser {
     private final static String SENTENCE_REGEX =
-            "(([\\'\\\"]*)(([a-hk-zA-Z]*)([i|j]*)([a-hk-zA-Z]+)" +
-                    "([i|j]*))+([\\.\\?\\!,\\:\\;\\'\\\"-]*))" +
-                    "([\\d\\+\\-\\*\\/()ij ]{3,})*";
+            "(([\\'\\\"(]*)(([a-hk-zA-Z]*)([i|j]*)([a-hk-zA-Z]+)([-]?)([ij]*))+([)\\.\\?\\!,\\:\\;\\'\\\"]*))(([\\d\\+\\-\\*\\/()ij ]{3,})*)";
 
     private final static LexemeParser LEXEME_PARSER = new LexemeParser();
     private final static SymbolParser SYMBOL_PARSER = new SymbolParser();
 
+    private final static int MATH_EXP_GROUP = 10;
+    private final static int LEXEME_GROUP = 1;
 
     @Override
-    public TextComponent handleParse(String inPut) {
+    public TextComponent handleParse(String sentence) {
 
-        Pattern pattern = Pattern.compile(SENTENCE_REGEX);
-        Matcher matcher = pattern.matcher(inPut);
+        Pattern pattern = Pattern.compile(SENTENCE_REGEX, Pattern.MULTILINE);
+        Matcher matcher = pattern.matcher(sentence);
         TextComponent component = new TextElement();
 
         while (matcher.find()) {
-            String group1 = matcher.group(1);
+            String lexeme = matcher.group(LEXEME_GROUP);
 
-            if(!group1.isEmpty()) {
-                TextComponent component1 = LEXEME_PARSER.handleParse(group1);
-                component1.setElementType(TextElementType.LEXEME);
-                component.add(component1);
+            if(!lexeme.isEmpty()) {
+                TextComponent lexemeComponent = LEXEME_PARSER.handleParse(lexeme);
+                lexemeComponent.setElementType(TextElementType.LEXEME);
+                component.add(lexemeComponent);
             }
-            String group9 = matcher.group(7);
+            String mathExp = matcher.group(MATH_EXP_GROUP);
 
-            if(!group9.isEmpty()) {
-                TextComponent component9 = SYMBOL_PARSER.handleParse(group9);
-                component9.setElementType(TextElementType.MATH_EXP);
-                component.add(component9);
+            if(!mathExp.isEmpty()) {
+                TextComponent mathExpCompnent = SYMBOL_PARSER.handleParse(mathExp.trim());
+                mathExpCompnent.setElementType(TextElementType.MATH_EXP);
+                component.add(mathExpCompnent);
             }
         }
         return component;
