@@ -12,14 +12,14 @@ import java.util.LinkedList;
 public class TextElement extends TextComponent {
 
 
-    private ArrayDeque<TextComponent> components;
+    private LinkedList<TextComponent> components;
 
     public TextElement() {
-        this.components = new ArrayDeque<>();
+        this.components = new LinkedList<>();
     }
 
     public TextElement(TextElementType elementType) {
-        this.components = new ArrayDeque<>();
+        this.components = new LinkedList<>();
         setElementType(elementType);
     }
 
@@ -63,7 +63,7 @@ public class TextElement extends TextComponent {
     }
 
     @Override
-    public ArrayDeque<TextComponent> getChild() {
+    public LinkedList<TextComponent> getChildren() {
         return components;
     }
 

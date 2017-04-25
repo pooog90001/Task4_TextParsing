@@ -12,8 +12,7 @@ import java.util.regex.Pattern;
  * Created by vlad_ on 4/17/2017.
  */
 public class LexemeParser extends AbstractParser {
-    private static final String LEXEME_REGEX =
-            "([\\'\\\"]*)(\\w+)([\\.\\?\\!,\\:\\;\\'\\\"-]*)";
+    private static final String LEXEME_REGEX = "([\\'\\\"]*)(\\w+)([\\.\\?\\!,\\:\\;\\'\\\"-]*)";
     private final static SymbolParser SYMBOL_PARSER = new SymbolParser();
 
     private final static int START_SYMBOLS_GROUP = 1;

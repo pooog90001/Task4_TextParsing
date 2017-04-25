@@ -16,12 +16,13 @@ import java.util.regex.Pattern;
 public class Interpreper {
     private final static Logger LOGGER = LogManager.getLogger(TextReader.class.getName());
 
-
+    private final static String BRACKETS_REGEX = "(\\()+([\\d\\-\\+\\*\\/()]+)(\\))+";
+    private final static String OPERANDS_AND_OPERATORS_REGEX = "([-]?\\d+)|(\\*)|(\\/)";
 
     public int calculateMathExp(String exp) {
         LinkedList<AbstractMathExp> mathExps = new LinkedList<>();
 
-        Pattern pattern = Pattern.compile("(\\()+([\\d\\-\\+\\*\\/()]+)(\\))+");
+        Pattern pattern = Pattern.compile(BRACKETS_REGEX);
         Matcher matcher = pattern.matcher(exp);
 
         while (matcher.find()) {
@@ -29,9 +30,10 @@ public class Interpreper {
             int number = calculateMathExp(matcher.group(2));
             exp = exp.replace(str, String.valueOf(number));
         }
-            pattern = Pattern.compile("([-]?\\d+)|(\\*)|(\\/)");
-            matcher = pattern.matcher(exp);
+        pattern = Pattern.compile(OPERANDS_AND_OPERATORS_REGEX);
+        matcher = pattern.matcher(exp);
         boolean isLastNumber = false;
+
         while (matcher.find()) {
             if (matcher.group(1) != null) {
                 if (isLastNumber) {
@@ -51,7 +53,7 @@ public class Interpreper {
             }
         }
 
-            return calculateSubExp(mathExps);
+        return calculateSubExp(mathExps);
 
     }
 

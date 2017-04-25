@@ -24,7 +24,7 @@ public abstract class TextComponent {
 
     public abstract void add(TextComponent component);
     public abstract void remove(TextComponent component);
-    public abstract void     removeAll();
+    public abstract void removeAll();
     public abstract String getElement();
-    public abstract ArrayDeque<TextComponent> getChild();
+    public abstract LinkedList<TextComponent> getChildren();
 }

@@ -11,7 +11,6 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayDeque;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -52,7 +51,7 @@ public class ExpCalculater {
 
         ArrayDeque<TextComponent> mathExpressions = new ArrayDeque<>();
 
-        for (TextComponent textComponent : component.getChild()) {
+        for (TextComponent textComponent : component.getChildren()) {
             if (TextElementType.MATH_EXP.equals(textComponent.getElementType())) {
                 mathExpressions.add(textComponent);
 
