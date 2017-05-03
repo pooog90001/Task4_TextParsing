@@ -10,13 +10,13 @@ import java.util.regex.Pattern;
 
 public class SentenceParser extends AbstractParser {
     private final static String SENTENCE_REGEX =
-            "(([\\'\\\"(]*)(([a-hk-zA-Z]*)([i|j]*)([a-hk-zA-Z]+)([-]?)([ij]*))+([)\\.\\?\\!,\\:\\;\\'\\\"]*))(([\\d\\+\\-\\*\\/()ij ]{3,})*)";
+            "(([\\'\\\"(]*)(\\w|-)+([)\\.\\?\\!,\\:\\;\\'\\\"]*))(([\\d\\+\\-\\*\\/()ij ]{3,})*)";
 
     private final static LexemeParser LEXEME_PARSER = new LexemeParser();
     private final static SymbolParser SYMBOL_PARSER = new SymbolParser();
 
-    private final static int MATH_EXP_GROUP = 10;
     private final static int LEXEME_GROUP = 1;
+    private final static int MATH_EXP_GROUP = 5;
 
     @Override
     public TextComponent handleParse(String sentence) {

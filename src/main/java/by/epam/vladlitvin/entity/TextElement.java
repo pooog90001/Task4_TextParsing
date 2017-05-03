@@ -68,4 +68,34 @@ public class TextElement extends TextComponent {
     }
 
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof TextElement)) {
+            return false;
+        }
+
+        TextElement that = (TextElement) o;
+
+        return components != null ?
+                components.equals(that.components) :
+                that.components == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return components != null ?
+                components.hashCode() :
+                0;
+    }
+
+    @Override
+    public String toString() {
+        return "TextElement {" +
+                "type: " + getElementType() +
+                "components=" + components +
+                '}';
+    }
 }

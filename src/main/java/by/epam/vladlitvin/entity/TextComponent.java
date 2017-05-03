@@ -1,10 +1,7 @@
 package by.epam.vladlitvin.entity;
 
-import by.epam.vladlitvin.exception.SymbolException;
 import by.epam.vladlitvin.type.TextElementType;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**

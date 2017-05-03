@@ -25,7 +25,7 @@ public class TextReader {
                 stringBuilder.append((char) c);
             }
             LOGGER.log(Level.INFO,"file: \"" + fileName + "\" was read. File contain:\n"
-                    + stringBuilder.toString());
+                    + stringBuilder);
         } catch (FileNotFoundException e) {
             LOGGER.log(Level.FATAL,"This file not found " + e);
             throw new RuntimeException(e.getMessage(), e);
